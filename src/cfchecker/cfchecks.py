@@ -48,7 +48,6 @@ from __future__ import print_function
 from builtins import str
 from builtins import next
 from builtins import map
-from past.builtins import basestring
 from builtins import object
 import sys, os, time
 
@@ -99,11 +98,7 @@ def isnt_str_or_basestring(thing):
     check if the passed in thing is a str, or if running under python 2,
     a basestring
     """
-
-    if sys.version_info[:2] < (3,0):
-      return not isinstance(thing, str) and not isinstance(thing, basestring)
-    else:
-      return not isinstance(thing, str)
+    return not isinstance(thing, str)
 
 def is_str_or_basestring(thing):
     """
@@ -2919,10 +2914,10 @@ class CFChecker(object):
       """ Check that arg1 and arg2 contain the same number elements."""
 
       # Determine if args are strings. Strings need to be split up into elements.
-      if isinstance(arg1, basestring):
+      if isinstance(arg1, str):
           arg1 = arg1.split()
 
-      if isinstance(arg2, basestring):
+      if isinstance(arg2, str):
           arg2 = arg2.split()
 
       if numpy.size(arg1) != numpy.size(arg2):
